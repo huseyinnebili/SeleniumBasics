@@ -236,13 +236,53 @@ public class ToolQA_Review extends CommonMethods {
 				driver.switchTo().window(message_window);
 
 				System.out.println("The ID of message window = " + driver.getWindowHandle());
-				
+
 				driver.close();
 			}
 		}
-		
+
 		driver.switchTo().window(main_window);
+
+		System.out.println("========== Handling of the Alerts ========");
+
+		for (int i = 0; i < btn_light.size(); i++) {
+
+			if (btn_light.get(i).getText().equalsIgnoreCase("Alerts")) {
+
+				btn_light.get(i).click();
+			}
+		}
 		
-		 driver.quit();
+		WebElement alert_button=driver.findElement(By.id("alertButton"));
+		js.executeScript("arguments[0].click()", alert_button);
+		Thread.sleep(2000);
+		String text_of_first_alert=driver.switchTo().alert().getText();
+		System.out.println("The message of first alert = "+text_of_first_alert);
+		
+		driver.switchTo().alert().accept();
+		
+		driver.findElement(By.id("timerAlertButton")).click();
+		
+		Thread.sleep(6000);
+		String text_of_timer_alert=driver.switchTo().alert().getText();
+		System.out.println("The message of the timer alert = "+text_of_timer_alert);
+		
+		driver.switchTo().alert().accept();
+
+		
+		driver.findElement(By.id("confirmButton")).click();
+		String text_confirm_alert=driver.switchTo().alert().getText();
+		System.out.println("The message of the confirm button alert = "+text_confirm_alert);
+		
+		driver.switchTo().alert().accept();
+		Thread.sleep(2000);
+		
+		WebElement prompt_alert_button=driver.findElement(By.id("promtButton"));
+		js.executeScript("arguments[0].click()", prompt_alert_button);
+		driver.switchTo().alert().sendKeys("Huseyin");
+		driver.switchTo().alert().accept();
+		System.out.println("Prompt alert's result = "+driver.findElement(By.id("promptResult")).getText());
+		
+		driver.quit();
 	}
 }
