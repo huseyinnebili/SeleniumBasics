@@ -177,14 +177,14 @@ public class ToolQA_Review extends CommonMethods {
 
 			if (text_of_btn_light.equalsIgnoreCase("Browser Windows")) {
 
-				btn_light.get(i).click();
+				js.executeScript("arguments[0].click()", btn_light.get(i));
 			}
 
 		}
 
 		System.out.println("==========Handling of the windows========");
 
-		driver.findElement(By.xpath("//*[text()='New Tab']")).click();
+		js.executeScript("arguments[0].click()",driver.findElement(By.xpath("//*[text()='New Tab']")));
 
 		String main_window = driver.getWindowHandle();
 		System.out.println("The ID of the main window = " + main_window);
@@ -242,6 +242,8 @@ public class ToolQA_Review extends CommonMethods {
 		}
 
 		driver.switchTo().window(main_window);
+		
+		
 
 		System.out.println("========== Handling of the Alerts ========");
 
@@ -249,7 +251,7 @@ public class ToolQA_Review extends CommonMethods {
 
 			if (btn_light.get(i).getText().equalsIgnoreCase("Alerts")) {
 
-				btn_light.get(i).click();
+				js.executeScript("arguments[0].click()", btn_light.get(i));
 			}
 		}
 		
@@ -282,6 +284,28 @@ public class ToolQA_Review extends CommonMethods {
 		driver.switchTo().alert().sendKeys("Huseyin");
 		driver.switchTo().alert().accept();
 		System.out.println("Prompt alert's result = "+driver.findElement(By.id("promptResult")).getText());
+		
+		
+		System.out.println("========== Handling of the Frames ========");
+		
+		for(int i=0;i<btn_light.size();i++) {
+			
+			if(btn_light.get(i).getText().equalsIgnoreCase("Frames")) {
+				
+				js.executeScript("arguments[0].click()", btn_light.get(i));
+			}
+		}
+		
+		driver.switchTo().frame("frame1");
+		
+		System.out.println("The text inside of the first frame = "+driver.findElement(By.id("sampleHeading")).getText());
+		
+		driver.switchTo().defaultContent();
+		
+		driver.switchTo().frame("frame2");
+		
+		System.out.println("The text inside of the second frame = "+driver.findElement(By.id("sampleHeading")).getText());
+		
 		
 		driver.quit();
 	}

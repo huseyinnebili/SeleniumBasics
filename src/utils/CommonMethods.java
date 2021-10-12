@@ -9,6 +9,7 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchFrameException;
 import org.openqa.selenium.OutputType;
@@ -19,6 +20,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -39,10 +41,12 @@ public class CommonMethods {
 			driver = new FirefoxDriver();
 		} else if (browser.equalsIgnoreCase("ie")) {
 			System.setProperty("webdriver.ie.driver", "src/driver/IEDriverServer.exe");
-			DesiredCapabilities caps = DesiredCapabilities.internetExplorer();
-			caps.setCapability("EnableNativeEvents", false);
-			caps.setCapability("ignoreZoomSetting", true);
 			driver = new InternetExplorerDriver();
+//			DesiredCapabilities caps = DesiredCapabilities.internetExplorer();
+//			caps.setCapability("EnableNativeEvents", false);
+//			caps.setCapability("ignoreZoomSetting", true);
+			
+			
 		} else if (browser.equalsIgnoreCase("edge")) {
 			System.setProperty("webdriver.edge.driver", "src\\driver\\msedgedriver.exe");
 			driver = new EdgeDriver();
