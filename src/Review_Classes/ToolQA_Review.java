@@ -307,6 +307,6 @@ public class ToolQA_Review extends CommonMethods {
 		System.out.println("The text inside of the second frame = "+driver.findElement(By.id("sampleHeading")).getText());
 		
 		
-		//driver.quit();
+		
 	}
 }
