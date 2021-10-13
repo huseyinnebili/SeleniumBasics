@@ -184,7 +184,7 @@ public class ToolQA_Review extends CommonMethods {
 
 		System.out.println("==========Handling of the windows========");
 
-		js.executeScript("arguments[0].click()",driver.findElement(By.xpath("//*[text()='New Tab']")));
+		js.executeScript("arguments[0].click()", driver.findElement(By.xpath("//*[text()='New Tab']")));
 
 		String main_window = driver.getWindowHandle();
 		System.out.println("The ID of the main window = " + main_window);
@@ -242,8 +242,6 @@ public class ToolQA_Review extends CommonMethods {
 		}
 
 		driver.switchTo().window(main_window);
-		
-		
 
 		System.out.println("========== Handling of the Alerts ========");
 
@@ -254,59 +252,107 @@ public class ToolQA_Review extends CommonMethods {
 				js.executeScript("arguments[0].click()", btn_light.get(i));
 			}
 		}
-		
-		WebElement alert_button=driver.findElement(By.id("alertButton"));
+
+		WebElement alert_button = driver.findElement(By.id("alertButton"));
 		js.executeScript("arguments[0].click()", alert_button);
 		Thread.sleep(2000);
-		String text_of_first_alert=driver.switchTo().alert().getText();
-		System.out.println("The message of first alert = "+text_of_first_alert);
-		
-		driver.switchTo().alert().accept();
-		
-		driver.findElement(By.id("timerAlertButton")).click();
-		
-		Thread.sleep(6000);
-		String text_of_timer_alert=driver.switchTo().alert().getText();
-		System.out.println("The message of the timer alert = "+text_of_timer_alert);
-		
+		String text_of_first_alert = driver.switchTo().alert().getText();
+		System.out.println("The message of first alert = " + text_of_first_alert);
+
 		driver.switchTo().alert().accept();
 
-		
+		driver.findElement(By.id("timerAlertButton")).click();
+
+		Thread.sleep(6000);
+		String text_of_timer_alert = driver.switchTo().alert().getText();
+		System.out.println("The message of the timer alert = " + text_of_timer_alert);
+
+		driver.switchTo().alert().accept();
+
 		driver.findElement(By.id("confirmButton")).click();
-		String text_confirm_alert=driver.switchTo().alert().getText();
-		System.out.println("The message of the confirm button alert = "+text_confirm_alert);
-		
+		String text_confirm_alert = driver.switchTo().alert().getText();
+		System.out.println("The message of the confirm button alert = " + text_confirm_alert);
+
 		driver.switchTo().alert().accept();
 		Thread.sleep(2000);
-		
-		WebElement prompt_alert_button=driver.findElement(By.id("promtButton"));
+
+		WebElement prompt_alert_button = driver.findElement(By.id("promtButton"));
 		js.executeScript("arguments[0].click()", prompt_alert_button);
 		driver.switchTo().alert().sendKeys("Huseyin");
 		driver.switchTo().alert().accept();
-		System.out.println("Prompt alert's result = "+driver.findElement(By.id("promptResult")).getText());
-		
-		
+		System.out.println("Prompt alert's result = " + driver.findElement(By.id("promptResult")).getText());
+
 		System.out.println("========== Handling of the Frames ========");
-		
-		for(int i=0;i<btn_light.size();i++) {
-			
-			if(btn_light.get(i).getText().equalsIgnoreCase("Frames")) {
-				
+
+		for (int i = 0; i < btn_light.size(); i++) {
+
+			if (btn_light.get(i).getText().equalsIgnoreCase("Frames")) {
+
 				js.executeScript("arguments[0].click()", btn_light.get(i));
 			}
 		}
-		
+
 		driver.switchTo().frame("frame1");
-		
-		System.out.println("The text inside of the first frame = "+driver.findElement(By.id("sampleHeading")).getText());
-		
+
+		System.out.println(
+				"The text inside of the first frame = " + driver.findElement(By.id("sampleHeading")).getText());
+
+		driver.switchTo().defaultContent();
+
+		driver.switchTo().frame("frame2");
+
+		System.out.println(
+				"The text inside of the second frame = " + driver.findElement(By.id("sampleHeading")).getText());
+
 		driver.switchTo().defaultContent();
 		
-		driver.switchTo().frame("frame2");
 		
-		System.out.println("The text inside of the second frame = "+driver.findElement(By.id("sampleHeading")).getText());
+
+		System.out.println("========== Handling of Nested Frames ========");
+
+		for (int i = 0; i < btn_light.size(); i++) {
+
+			if (btn_light.get(i).getText().equalsIgnoreCase("Nested Frames")) {
+
+				js.executeScript("arguments[0].click()", btn_light.get(i));
+			}
+		}
+
+		driver.switchTo().frame("frame1");
+
+		WebElement child_frame = driver.findElement(By.xpath("//*[@srcdoc='<p>Child Iframe</p>']"));
+
+		driver.switchTo().frame(child_frame);
+
+		System.out.println(
+				"The text of child frame = " + driver.findElement(By.xpath("//*[text()='Child Iframe']")).getText());
+	
+		driver.switchTo().defaultContent();
 		
 		
+		System.out.println("========== Handling of Modal Dialogs ========");
 		
+		for(int i=0;i<btn_light.size();i++) {
+			
+			if(btn_light.get(i).getText().equalsIgnoreCase("Modal Dialogs")) {
+				
+				js.executeScript("arguments[0].click()", btn_light.get(i));
+				
+				
+			}
+		}
+		
+		driver.findElement(By.id("showSmallModal")).click();
+		System.out.println("The text inside Small Modal = "+driver.findElement(By.xpath("//*[@class='modal-body']")).getText());
+		driver.findElement(By.id("closeSmallModal")).click();
+		
+
+		driver.findElement(By.id("showLargeModal")).click();
+		System.out.println("The text inside Large Modal = "+driver.findElement(By.xpath("//*[@class='modal-body']/p")).getText());
+		driver.findElement(By.id("closeLargeModal")).click();
+		
+		
+		driver.quit();
+
 	}
 }
