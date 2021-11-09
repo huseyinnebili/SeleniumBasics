@@ -537,7 +537,7 @@ public class ToolQA_Review extends CommonMethods {
 
 		Thread.sleep(3000);
 
-		driver.quit();
+		driver.quit()
 
 	}
 }
