@@ -6,6 +6,9 @@ import java.util.Set;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import utils.CommonMethods;
 
@@ -16,6 +19,8 @@ public class ToolQA_Review extends CommonMethods {
 		CommonMethods.setUpDriver("chrome", "https://demoqa.com/");
 
 		JavascriptExecutor js = (JavascriptExecutor) driver;
+
+		Actions action = new Actions(driver);
 
 		System.out.println("=========First List======");
 
@@ -37,10 +42,8 @@ public class ToolQA_Review extends CommonMethods {
 
 			if (text.equalsIgnoreCase(exp_text)) {
 
-//				WebElement element = driver
-//						.findElement(By.xpath("//*[@id='app']//div[@class='category-cards']/div[1]"));
-
 				js.executeScript("arguments[0].click();", list.get(i));
+
 				break;
 			}
 		}
@@ -143,6 +146,31 @@ public class ToolQA_Review extends CommonMethods {
 			System.out.println(driver.findElement(By.xpath("//*[@class='mt-3']")).getText());
 
 		}
+
+		for (int i = 0; i < list_2.size(); i++) {
+
+			if (list_2.get(i).getText().equalsIgnoreCase("Dynamic Properties")) {
+
+				js.executeScript("arguments[0].click()", list_2.get(i));
+			}
+		}
+
+		driver.findElement(By.id("enableAfter")).click();
+
+		wait = new WebDriverWait(driver, 30);
+
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("visibleAfter")));
+
+		WebElement visible_after = driver.findElement(By.id("visibleAfter"));
+
+		if (visible_after.isDisplayed()) {
+
+			System.out.println(visible_after.getText());
+		}
+
+		driver.findElement(By.id("colorChange")).click();
+
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("colorChange")));
 
 		List<WebElement> list_3 = driver.findElements(By.xpath("//*[@id=\"app\"]/div/div/div[2]/div[1]/div/div/div"));
 
@@ -305,8 +333,6 @@ public class ToolQA_Review extends CommonMethods {
 				"The text inside of the second frame = " + driver.findElement(By.id("sampleHeading")).getText());
 
 		driver.switchTo().defaultContent();
-		
-		
 
 		System.out.println("========== Handling of Nested Frames ========");
 
@@ -326,32 +352,191 @@ public class ToolQA_Review extends CommonMethods {
 
 		System.out.println(
 				"The text of child frame = " + driver.findElement(By.xpath("//*[text()='Child Iframe']")).getText());
-	
+
 		driver.switchTo().defaultContent();
-		
-		
+
 		System.out.println("========== Handling of Modal Dialogs ========");
-		
-		for(int i=0;i<btn_light.size();i++) {
-			
-			if(btn_light.get(i).getText().equalsIgnoreCase("Modal Dialogs")) {
-				
+
+		for (int i = 0; i < btn_light.size(); i++) {
+
+			if (btn_light.get(i).getText().equalsIgnoreCase("Modal Dialogs")) {
+
 				js.executeScript("arguments[0].click()", btn_light.get(i));
-				
-				
+
 			}
 		}
-		
+
 		driver.findElement(By.id("showSmallModal")).click();
-		System.out.println("The text inside Small Modal = "+driver.findElement(By.xpath("//*[@class='modal-body']")).getText());
+		System.out.println(
+				"The text inside Small Modal = " + driver.findElement(By.xpath("//*[@class='modal-body']")).getText());
 		driver.findElement(By.id("closeSmallModal")).click();
-		
 
 		driver.findElement(By.id("showLargeModal")).click();
-		System.out.println("The text inside Large Modal = "+driver.findElement(By.xpath("//*[@class='modal-body']/p")).getText());
+		System.out.println("The text inside Large Modal = "
+				+ driver.findElement(By.xpath("//*[@class='modal-body']/p")).getText());
 		driver.findElement(By.id("closeLargeModal")).click();
-		
-		
+
+		System.out.println("=======WebTable Handle========");
+
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div/div/div[2]/div[1]/div/div/div[1]/span/div")).click();
+
+		List<WebElement> list_4 = driver.findElements(By.xpath("//*[@class='element-list collapse show']/ul/li"));
+
+		System.out.println("========Fourth List=========");
+
+		for (int i = 0; i < list_4.size(); i++) {
+
+			String text_of_list = list_4.get(i).getText();
+
+			System.out.println(text_of_list);
+
+		}
+
+		for (int i = 0; i < list_4.size(); i++) {
+
+			if (list_4.get(i).getText().contains("Web Tables")) {
+
+				js.executeScript("arguments[0].click()", list_4.get(i));
+
+			}
+		}
+
+		List<WebElement> rows = driver.findElements(By.xpath("//*[@class='rt-tr-group']/div"));
+
+		System.out.println("=====List of Rows=======");
+
+		for (int i = 0; i < rows.size(); i++) {
+
+			String text_of_rows = rows.get(i).getText();
+
+			System.out.println(text_of_rows);
+		}
+
+		List<WebElement> cells = driver.findElements(By.xpath("//*[@class='rt-tr-group']/div/div"));
+
+		System.out.println("=====List of Cells======");
+
+		for (int i = 0; i < cells.size(); i++) {
+
+			String text_of_cells = cells.get(i).getText();
+
+			System.out.println(text_of_cells);
+		}
+
+		driver.findElement(By.id("addNewRecordButton")).click();
+
+		driver.findElement(By.id("firstName")).sendKeys("Alex");
+		driver.findElement(By.id("lastName")).sendKeys("Firlex");
+		driver.findElement(By.id("userEmail")).sendKeys("abc@gmail.com");
+		driver.findElement(By.id("age")).sendKeys("40");
+		driver.findElement(By.id("salary")).sendKeys("8000");
+		driver.findElement(By.id("department")).sendKeys("IT Department");
+		driver.findElement(By.id("submit")).click();
+
+		driver.findElement(By.id("searchBox")).sendKeys("Alex");
+		driver.findElement(By.id("basic-addon2")).click();
+
+		List<WebElement> cells_update = driver.findElements(By.xpath("//*[@class='rt-tr-group']/div/div"));
+
+		System.out.println("=====List of _Updated_Cells======");
+
+		for (int i = 0; i < cells_update.size(); i++) {
+
+			String text_of_cells_update = cells_update.get(i).getText();
+
+			System.out.println(text_of_cells_update);
+		}
+
+		System.out.println("======Handling of Buttons with Actions Class========");
+
+		for (int i = 0; i < list_2.size(); i++) {
+
+			if (list_2.get(i).getText().equalsIgnoreCase("Buttons")) {
+
+				js.executeScript("arguments[0].click()", list_2.get(i));
+			}
+		}
+
+		WebElement double_click_button = driver.findElement(By.id("doubleClickBtn"));
+
+		action.doubleClick(double_click_button).perform();
+
+		System.out.println(driver.findElement(By.id("doubleClickMessage")).getText());
+
+		Thread.sleep(2000);
+
+		WebElement right_click_button = driver.findElement(By.id("rightClickBtn"));
+
+		action.contextClick(right_click_button).perform();
+
+		System.out.println(driver.findElement(By.id("rightClickMessage")).getText());
+
+		Thread.sleep(2000);
+
+		WebElement click_button = driver.findElement(By.xpath("//*[text()='Click Me']"));
+
+		action.click(click_button).perform();
+
+		System.out.println(driver.findElement(By.id("dynamicClickMessage")).getText());
+
+		Thread.sleep(2000);
+
+		js.executeScript("window.scrollBy(0,900)");
+
+		js.executeScript("arguments[0].click()",
+				driver.findElement(By.xpath("//*[@id=\"app\"]/div/div/div[2]/div[1]/div/div/div[5]/span/div")));
+
+		List<WebElement> list_of_interactions = driver
+				.findElements(By.xpath("//*[@class='element-list collapse show']/ul/li"));
+
+		for (int i = 0; i < list_of_interactions.size(); i++) {
+
+			if (list_of_interactions.get(i).getText().equalsIgnoreCase("Droppable")) {
+
+				js.executeScript("arguments[0].click()", list_of_interactions.get(i));
+			}
+		}
+
+		WebElement drag = driver.findElement(By.id("draggable"));
+
+		WebElement drop = driver.findElement(By.id("droppable"));
+
+		action.dragAndDrop(drag, drop).perform();
+
+		driver.findElement(By.id("droppableExample-tab-accept")).click();
+
+		WebElement drag_2 = driver.findElement(By.id("acceptable"));
+		WebElement drop_2 = driver.findElement(By.xpath("//*[@id='acceptDropContainer']/div[2]"));
+
+		action.dragAndDrop(drag_2, drop_2).build().perform();
+
+		Thread.sleep(3000);
+
+		driver.findElement(By.id("droppableExample-tab-preventPropogation")).click();
+
+		WebElement drag_3 = driver.findElement(By.id("dragBox"));
+		WebElement drop_3 = driver.findElement(By.id("notGreedyDropBox"));
+		WebElement drop_3_1 = driver.findElement(By.id("notGreedyInnerDropBox"));
+//
+//		WebElement drop_4 = driver.findElement(By.id("notGreedyDropBox"));
+//		WebElement drop_4_1 = driver.findElement(By.id("notGreedyInnerDropBox"));
+//		
+//		action.dragAndDrop(drag_3, drop_3).build().perform();
+//
+//		Thread.sleep(3000); , 
+//
+//		action.dragAndDrop(drag_3, drop_3_1).build().perform();
+//
+//		Thread.sleep(3000);
+//
+		action.dragAndDrop(drag_3, drop_3_1).build().perform();
+
+		Thread.sleep(3000);
+
+		action.dragAndDrop(drag_3, drop_3).build().perform();
+
+		Thread.sleep(3000);
+
 		driver.quit();
 
 	}
