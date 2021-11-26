@@ -4,12 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchFrameException;
 import org.openqa.selenium.OutputType;
@@ -20,8 +18,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.ie.InternetExplorerOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -34,7 +30,7 @@ public class CommonMethods {
 	public static void setUpDriver(String browser, String url) {
 
 		if (browser.equalsIgnoreCase("chrome")) {
-			System.setProperty("webdriver.chrome.driver", "src/driver/chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver", "C:\\Users\\husey\\eclipse-workspace\\SeleniumBasics\\src\\driver\\chromedriver.exe");
 			driver = new ChromeDriver();
 		} else if (browser.equalsIgnoreCase("firefox")) {
 			System.setProperty("webdriver.gecko.driver", "src/driver/geckodriver.exe");
@@ -42,9 +38,7 @@ public class CommonMethods {
 		} else if (browser.equalsIgnoreCase("ie")) {
 			System.setProperty("webdriver.ie.driver", "src/driver/IEDriverServer.exe");
 			driver = new InternetExplorerDriver();
-//			DesiredCapabilities caps = DesiredCapabilities.internetExplorer();
-//			caps.setCapability("EnableNativeEvents", false);
-//			caps.setCapability("ignoreZoomSetting", true);
+
 			
 			
 		} else if (browser.equalsIgnoreCase("edge")) {
@@ -58,7 +52,7 @@ public class CommonMethods {
 		driver.manage().window().maximize();
 		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-		wait = new WebDriverWait(driver, 10);
+		wait = new WebDriverWait(driver, 20);
 
 	}
 
@@ -188,6 +182,7 @@ public class CommonMethods {
 	}
 
 	public static void takeScreenshot(String folderName, String fileName) {
+		
 		TakesScreenshot ts = (TakesScreenshot) driver;
 		File scr = ts.getScreenshotAs(OutputType.FILE);
 

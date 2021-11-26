@@ -28,7 +28,7 @@ public class TaskOne extends CommonMethods {
 		action.doubleClick(dc).perform();
 		Alert alertTwo = driver.switchTo().alert();
 		alertTwo.accept();
-		driver.close();
+		//driver.close();
 
 	}
 }

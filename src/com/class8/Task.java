@@ -12,10 +12,10 @@ public class Task extends CommonMethods {
 
 //		TC 1: Verify element is present
 //		Open chrome browser
-//		Go to “https://the-internet.herokuapp.com/”
-//		Click on “Click on the “Dynamic Loading” link
-//		Click on “Example 1...” and click on “Start”
-//		Verify element with text “Hello World!” is displayed
+//		Go to ï¿½https://the-internet.herokuapp.com/ï¿½
+//		Click on ï¿½Click on the ï¿½Dynamic Loadingï¿½ link
+//		Click on ï¿½Example 1...ï¿½ and click on ï¿½Startï¿½
+//		Verify element with text ï¿½Hello World!ï¿½ is displayed
 //		Close the browser
 
 		String url = "https://the-internet.herokuapp.com/";
@@ -37,6 +37,6 @@ public class Task extends CommonMethods {
 		}
 
 	
-	driver.quit();
+	//driver.quit();
 	}
 }

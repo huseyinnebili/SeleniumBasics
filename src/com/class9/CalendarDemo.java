@@ -32,6 +32,6 @@ public class CalendarDemo extends CommonMethods {
 			}
 		}
 		Thread.sleep(7000);
-		driver.quit();
+		//driver.quit();
 	}
 }

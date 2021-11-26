@@ -19,7 +19,7 @@ package com.class7;
 			Actions action = new Actions(driver);
 			action.dragAndDrop(drag, drop).perform();
 			Thread.sleep(2000);
-			driver.close();
+		//	driver.close();
 
 		}
 }

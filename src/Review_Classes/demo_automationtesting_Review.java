@@ -8,7 +8,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import utils.CommonMethods;
 
 public class demo_automationtesting_Review extends CommonMethods {
@@ -226,7 +229,6 @@ public class demo_automationtesting_Review extends CommonMethods {
 		driver.findElement(By.id("secondpassword")).sendKeys("2112522Hn.");
 		driver.findElement(By.id("submitbtn")).click();
 
-		
 		System.out.println("========Handling of Alerts========== ");
 
 		List<WebElement> list_of_functions = driver.findElements(By.xpath("//*[@class='nav navbar-nav']/li"));
@@ -289,9 +291,8 @@ public class demo_automationtesting_Review extends CommonMethods {
 
 		System.out.println(driver.findElement(By.id("demo1")).getText());
 
-		
 		System.out.println("========Handling of Windows========== ");
-		
+
 		Actions action = new Actions(driver);
 
 		action.moveToElement(driver.findElement(By.linkText("SwitchTo"))).perform();
@@ -317,108 +318,129 @@ public class demo_automationtesting_Review extends CommonMethods {
 		} catch (Exception e) {
 		}
 
-		
-		System.out.println("The text of Main Window = "+driver.getTitle());
-		
-		String main_window=driver.getWindowHandle();
-		
-		System.out.println("The ID of Main  Window = "+main_window);
-		
+		System.out.println("The text of Main Window = " + driver.getTitle());
+
+		String main_window = driver.getWindowHandle();
+
+		System.out.println("The ID of Main  Window = " + main_window);
+
 		driver.findElement(By.xpath("//*[@id='Tabbed']/a/button")).click();
-		
-		Set<String>tabbed_windows=driver.getWindowHandles();
-		
-		for(String tabbed_window:tabbed_windows) {
-			
-			if(!tabbed_window.equals(main_window)) {
-				
+
+		Set<String> tabbed_windows = driver.getWindowHandles();
+
+		for (String tabbed_window : tabbed_windows) {
+
+			if (!tabbed_window.equals(main_window)) {
+
 				driver.switchTo().window(tabbed_window);
-				
-				System.out.println("The Title of Tabbed Window = "+driver.getTitle());
-				
-				System.out.println("The ID of Tabbed Window = "+driver.getWindowHandle());
-				
-				
+
+				System.out.println("The Title of Tabbed Window = " + driver.getTitle());
+
+				System.out.println("The ID of Tabbed Window = " + driver.getWindowHandle());
+
 			}
 		}
-		
+
 		driver.close();
-		
+
 		driver.switchTo().window(main_window);
-		
+
 		driver.findElement(By.linkText("Open New Seperate Windows")).click();
-		
+
 		driver.findElement(By.xpath("//*[@onclick='newwindow()']")).click();
-		
-		Set<String>seperate_windows=driver.getWindowHandles();
-		
-		for(String seperate_window:seperate_windows) {
-			
-			if(!seperate_window.equals(main_window)) {
-				
+
+		Set<String> seperate_windows = driver.getWindowHandles();
+
+		for (String seperate_window : seperate_windows) {
+
+			if (!seperate_window.equals(main_window)) {
+
 				driver.switchTo().window(seperate_window);
-				
-				System.out.println("The Title of Seperate Window = "+driver.getTitle());
-				
-				System.out.println("The ID of Seperate Window = "+driver.getWindowHandle());
+
+				System.out.println("The Title of Seperate Window = " + driver.getTitle());
+
+				System.out.println("The ID of Seperate Window = " + driver.getWindowHandle());
 			}
 		}
-		
+
 		driver.close();
-		
+
 		driver.switchTo().window(main_window);
-		
+
 		driver.findElement(By.xpath("//*[text()='Open Seperate Multiple Windows']")).click();
-		
+
 		driver.findElement(By.xpath("//*[@onclick='multiwindow()']")).click();
-		
-		Set<String>multi_windows=driver.getWindowHandles();
-		
-		for(String multi_window:multi_windows) {
-			
-			if(!multi_window.equals(main_window)) {
-				
+
+		Set<String> multi_windows = driver.getWindowHandles();
+
+		for (String multi_window : multi_windows) {
+
+			if (!multi_window.equals(main_window)) {
+
 				driver.switchTo().window(multi_window);
-				
-				System.out.println("The Text of Multi Window = "+driver.getTitle());
-				
-				System.out.println("The ID of Multi Window = "+driver.getWindowHandle());
+
+				System.out.println("The Text of Multi Window = " + driver.getTitle());
+
+				System.out.println("The ID of Multi Window = " + driver.getWindowHandle());
 			}
 		}
-		
+
 		driver.close();
-		
+
 		driver.switchTo().window(main_window);
-		
-      
+
 		System.out.println("========Handling of Frames========== ");
-		
+
 		action.moveToElement(driver.findElement(By.linkText("SwitchTo"))).perform();
-		
-		
+
 		driver.findElement(By.linkText("Frames")).click();
-		
+
 		driver.switchTo().frame("singleframe");
-		
+
 		driver.findElement(By.xpath("//*[@type='text']")).sendKeys("Hello!");
-		
+
 		driver.switchTo().defaultContent();
-		
+
 		driver.findElement(By.linkText("Iframe with in an Iframe")).click();
-		
+
 		driver.switchTo().frame(driver.findElement(By.xpath("//*[@id='Multiple']/iframe")));
-		
+
 		driver.switchTo().frame(driver.findElement(By.xpath("//*[@style='float: left;height: 250px;width: 400px']")));
 
 		driver.findElement(By.xpath("//*[@type='text']")).sendKeys("Hello World!");
-		
 
 		driver.switchTo().defaultContent();
-		
-		action.moveToElement(driver.findElement(By.linkText("SwitchTo"))).perform();
-      
-		
-	      driver.quit();
+
+		System.out.println("=======Handling of Dynamic Elements======");
+
+		driver.findElement(By.linkText("More")).click();
+
+		try {
+
+			List<WebElement> list_of_more = driver
+					.findElements(By.xpath("//*[text()='More']//following-sibling::ul/li"));
+
+			for (int i = 0; i < list_of_more.size(); i++) {
+
+				if (list_of_more.get(i).getText().equalsIgnoreCase("Dynamic Data")) {
+
+					list_of_more.get(i).click();
+				}
+			}
+
+		} catch (Exception e) {
+
+		}
+
+		driver.findElement(By.xpath("//*[@id=\"save\"]")).click();
+
+		wait = new WebDriverWait(driver, 30);
+
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("loading")));
+
+	
+
+	//	driver.quit();
 
 	}
 

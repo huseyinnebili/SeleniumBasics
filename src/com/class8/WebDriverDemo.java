@@ -31,6 +31,6 @@ public class WebDriverDemo extends CommonMethods {
 			System.out.println("Element is not displayed");
 		}
 
-		driver.quit();
+		//driver.quit();
 	}
 }

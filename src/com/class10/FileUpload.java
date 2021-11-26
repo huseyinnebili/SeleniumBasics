@@ -6,14 +6,14 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.By;
-import org.testng.annotations.Test;
+
 
 import utils.CommonMethods;
 
 public class FileUpload extends CommonMethods {
 
-	public static void main(String[] args) throws InterruptedException {
-		try {
+	public static void main(String[] args) throws InterruptedException, IOException {
+
 		String url = "http://the-internet.herokuapp.com";
 		setUpDriver("chrome", url);
 
@@ -32,20 +32,17 @@ public class FileUpload extends CommonMethods {
 			System.out.println("File uploaded successfully");
 		}
 
+		// Take the screenshot
+		File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+
+		// Copy the file to a location and use try catch block to handle exception
+		
+			FileUtils.copyFile(screenshot, new File("C:\\Users\\husey\\eclipse-workspace\\SeleniumBasics\\screenshotst.png"));
+		
+
 		Thread.sleep(2000);
 
-		TakesScreenshot ts = (TakesScreenshot) driver;
-		File pic = ts.getScreenshotAs(OutputType.FILE);
-		
-			FileUtils.copyFile(pic, new File("screenshots/herokuapp/upload.jpg"));
-			Thread.sleep(2000);
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("Screenshot not taken");
-
-		}finally {
-		
 		driver.quit();
-		}
+
 	}
 }
