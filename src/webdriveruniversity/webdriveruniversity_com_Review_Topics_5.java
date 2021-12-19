@@ -151,7 +151,7 @@ public class webdriveruniversity_com_Review_Topics_5 {
 
 		driver.close();
 
-		driver.switchTo().window(main_windwow);
+		driver.switchTo().window(main_windwow
 
 		 driver.quit();
 	}
