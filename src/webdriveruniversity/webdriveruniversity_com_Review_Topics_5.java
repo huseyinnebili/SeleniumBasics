@@ -153,7 +153,7 @@ public class webdriveruniversity_com_Review_Topics_5 {
 
 		driver.switchTo().window(main_windwow);
 
-		// driver.quit();
+		 driver.quit();
 	}
 
 }
